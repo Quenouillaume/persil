@@ -4,6 +4,7 @@ A simple python project for computing **Persi**stent homo**L**ogy. My goal is to
 
 ## TODO
 
+* Learn how to make python packages
 * Comment code
 * Add a guide
 * Organize files and code
