@@ -49,9 +49,10 @@ If everything works fine, it should output:
 
 
 ## TODO
+* Organize files and code
+* Persistence diagrams and barcodes
 
+## IN PROGRESS
 * Learn how to make python packages
 * Comment code
 * Add a guide
-* Organize files and code
-* Persistence diagrams and barcodes
