@@ -1,5 +1,4 @@
 import numpy as np
-import time
 
 class Simplex:
     def __init__(self,l):
@@ -12,7 +11,7 @@ class Simplex:
     def __eq__(self,other):
         return (self.vertices == other.vertices)
 
-    def __lt__(self,other):
+    def __lt__(self,other): # should only be used for simplices of same dimension
         for (x,y) in zip(self.vertices,other.vertices):
             if x>y:
                 return False
