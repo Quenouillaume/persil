@@ -2,7 +2,7 @@
 A simple python project for computing **Persi**stent homo**L**ogy. My goal is to have some code nice enough to be able to add it to [SageMath](https://www.sagemath.org "Tiens tiens quelle surprise :)") !
 The algorithm implemented is described in this [article by Afra Zomorodian and Gunnar Carlsson](https://geometry.stanford.edu/papers/zc-cph-05/zc-cph-05.pdf). Many thanks to them for writing such a clear article !
 
-
+If you encounter any issues, please don't hesitate to contact me !
 
 # Installation
 ## On Linux
@@ -14,8 +14,7 @@ Install directly from github with `python3 -m pip install https://github.com/que
 Install directly from github with `python -m pip install https://github.com/quenouillaume/persil/archive/refs/tags/v0.1-alpha.tar.gz`
 
 ## On your favorite python IDE
-
-Install directly from github with `pip install https://github.com/quenouillaume/persil/archive/refs/tags/v0.1-alpha.tar.gz`
+If you're using Pyzo, Jupyter Notebook or something similar, simply type `pip install https://github.com/quenouillaume/persil/archive/refs/tags/v0.1-alpha.tar.gz` 
 
 
 # Guide
@@ -49,9 +48,10 @@ If everything works fine, it should output:
 
 
 ## TODO
+* Organize files and code
+* Persistence diagrams and barcodes
 
+## IN PROGRESS
 * Learn how to make python packages
 * Comment code
 * Add a guide
-* Organize files and code
-* Persistence diagrams and barcodes
