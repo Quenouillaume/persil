@@ -1,5 +1,5 @@
-from .simplexchain import *
-from .homology import *
-from .graphical import *
+import simplexchain
+import homology
+import graphical
 
 __all__ = ["simplexchain","homology","graphical"]
