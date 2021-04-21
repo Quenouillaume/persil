@@ -1,4 +1,4 @@
-import .simplexchain
+from .simplexchain import *
 import .homology
 import .graphical
 
