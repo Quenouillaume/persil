@@ -19,10 +19,13 @@ If you're using Pyzo, Jupyter Notebook or something similar, simply type `pip in
 
 # Guide
 
-I have not yet written a guide, but it will come soon ! For now, you can use the following code as example. This code computes the peristent homology for the complex described in Zomorodian+Carlsson's article.
+I have not yet written a guide, but it will come soon ! For now, you can use the following code as example. 
+## Simple example
+This code computes the peristent homology for the complex described in Zomorodian+Carlsson's article.
 
 ```python
-from persil.persil import *
+from persil.simplexchain import *
+from persil.homology import *
 # First step: create a list of simplices and filtration values (also called degrees)
 list_simplex_degree = [([0],0), ([1],0), ([2],1), ([3],1), ([0, 1],1), ([1, 2],1), ([0, 3],2), ([2, 3],2), ([0, 2],3), ([0, 1, 2],4), ([0, 2, 3],5)]
 
@@ -43,6 +46,38 @@ If everything works fine, it should output:
 [(0, 1), (1, 1), (1, 2), (0, inf)]
 [(3, 4), (2, 5)]
 ```
+## Graphical representation
+On the same complex as above, shows the persistence diagram for dimension 0
+
+```python
+from persil.simplexchain import *
+from persil.homology import *
+from persil.graphical import *
+
+# First step: create a list of simplices and filtration values (also called degrees)
+list_simplex_degree = [([0],0), ([1],0), ([2],1), ([3],1), ([0, 1],1), ([1, 2],1), ([0, 3],2), ([2, 3],2), ([0, 2],3), ([0, 1, 2],4), ([0, 2, 3],5)]
+
+# add them one by one in a fresh complex
+fc = FilteredComplex()
+for (simplex, value) in list_simplex_degree:
+    fc.insert(simplex,value)
+
+# compute persistent homology in Z/2Z
+zc = ZomorodianCarlsson(fc)
+zc.computeIntervals()
+
+persistence_diagram(zc.intervals[0])
+```
+If everything works fine, it should output:
+
+```python
+[(0, 1), (1, 1), (1, 2), (0, inf)]
+[(3, 4), (2, 5)]
+```
+
+
+
+
 
 
 
