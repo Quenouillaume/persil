@@ -68,16 +68,7 @@ zc.computeIntervals()
 
 persistence_diagram(zc.intervals[0])
 ```
-If everything works fine, it should output:
-
-```python
-[(0, 1), (1, 1), (1, 2), (0, inf)]
-[(3, 4), (2, 5)]
-```
-
-
-
-
+If everything works fine, this should draw a nice persistence diagram with one vertical line and 3 points !
 
 
 
