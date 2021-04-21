@@ -1,4 +1,4 @@
-from simplexchain import *
+from .simplexchain import *
 from numpy import inf
 
 # FilteredComplex class (note that filtrations are non-decreasing), and ZomorodianCarlsson class, which is used to compute homology
