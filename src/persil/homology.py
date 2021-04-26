@@ -99,7 +99,7 @@ class ZomorodianCarlsson:
         self.field = field
 
 
-        self.marked = set()
+        self.marked = [False for i in range(self.n)]
         self.T = [None for i in range(self.n)] # contains couples (simplex,chain)
         self.intervals = [[] for i in range(self.dim+1)]
         self.pairs = []
@@ -137,7 +137,7 @@ class ZomorodianCarlsson:
             if d.isEmpty():
                 if self.verbose:
                     print("Boundary is empty when pivots are removed: marking {}".format(s))
-                self.marked.add(s)
+                self.marked[j] = True
             else:
 
                 t,maxInd = self.maxIndex(d)
@@ -152,7 +152,7 @@ class ZomorodianCarlsson:
             print("First pass over, beginning second pass")
         for j in range(self.n):
             s = self.simplices[j]
-            if s in self.marked and not self.T[j]:
+            if self.marked[j] and not self.T[j]:
                 k = s.dim -1
                 if self.verbose:
                     print("Infinite interval found for {}.".format(s))
@@ -165,7 +165,7 @@ class ZomorodianCarlsson:
     def removePivotRows(self,s):
         d = simplexBoundary(s,self.field)
         for s in d.coeffs:
-            if s not in self.marked:
+            if not self.marked[self._indexBySimplex[s]]:
                 d.coeffs[s] = 0
         d.purge()
         while not d.isEmpty():
