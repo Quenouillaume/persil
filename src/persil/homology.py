@@ -188,7 +188,7 @@ class ZomorodianCarlsson:
             q = c.getCoeff(t)
             if self.verbose:
                 print("{} is in T with coeff {}: ".format(t,q),"##########",str(c),"##########",sep='\n'    )
-            d = d - pow(q,d.field-2,d.field)*c
+            d = d - pow(q,self.field-2,self.field)*c
         return d
 
 
