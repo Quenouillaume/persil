@@ -108,7 +108,7 @@ class SimplexChain:
 
     def __rmul__(self,other):
         res = SimplexChain([],self.complex)
-        for s in self.coeffs:
+        for j in self.coeffs:
             res.coeffs[j] = (other*self.coeffs[j])%self.complex.field
         return res
 
