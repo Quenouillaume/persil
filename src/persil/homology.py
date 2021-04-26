@@ -139,7 +139,8 @@ class ZomorodianCarlsson:
                 self.marked[j] = True
             else:
 
-                t,maxInd = self.maxIndex(d)
+                maxInd = self.maxIndex(d)
+                t = self.simplices[maxInd]
                 k = t.dim-1
                 self.T[maxInd] = (s,d)
                 self.addInterval(k,t,s)
@@ -173,9 +174,10 @@ class ZomorodianCarlsson:
                 print("Current chain d:")
                 print(str(d))
 
-            t,maxInd = self.maxIndex(d)
+            maxInd = self.maxIndex(d)
+            t = self.simplices[maxInd]
             if self.verbose:
-                print("simplex with max index in d: {} with index {}".format(t,maxInd))
+                print("simplex with max index in d: {} with index {}".format(maxInd))
 
             if not self.T[maxInd]:
                 if self.verbose:
@@ -192,12 +194,10 @@ class ZomorodianCarlsson:
 
     def maxIndex(self,d):
         currmax = -1
-        res = None
         for j in d.coeffs:
             if j>currmax:
                 currmax = j
-                res = s
-        return (res,currmax)
+        return currmax
 
 
 
