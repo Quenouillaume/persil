@@ -161,7 +161,7 @@ class ZomorodianCarlsson:
 
 
     def removePivotRows(self,s):
-        d = simplexBoundary(s,self.field)
+        d = simplexBoundary(s,self)
         for j in d.coeffs:
             if not self.marked[j]:
                 d.coeffs[j] = 0
