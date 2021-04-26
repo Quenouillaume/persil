@@ -57,11 +57,11 @@ def isFace(s1,s2):
 
 
 class SimplexChain:
-    def __init__(self,simplexCoeffList,homology):
+    def __init__(self,simplexCoeffList,complex):
         self.coeffs = {}
-        self.complex = homology
+        self.complex = complex
         for (j,c) in simplexCoeffList:
-            self.coeffs[j] = c % self.homology.field
+            self.coeffs[j] = c % self.complex.field
 
     def getCoeff(self,j):
         if j in self.coeffs:
@@ -89,7 +89,7 @@ class SimplexChain:
             res.coeffs[j] = self.coeffs[j]
         for j in other.coeffs:
             if j in res.coeffs:
-                res.coeffs[j] = (other.coeffs[j] + res.coeffs[j])%self.homology.field
+                res.coeffs[j] = (other.coeffs[j] + res.coeffs[j])%self.complex.field
             else:
                 res.coeffs[j] = other.coeffs[j]
             if res.coeffs[j] == 0:
@@ -99,7 +99,7 @@ class SimplexChain:
     def __neg__(self):
         res = SimplexChain([],self.complex)
         for j in self.coeffs:
-            res.coeffs[j] = (-self.coeffs[j])%self.homology.field
+            res.coeffs[j] = (-self.coeffs[j])%self.complex.field
         return res
 
 
@@ -109,7 +109,7 @@ class SimplexChain:
     def __rmul__(self,other):
         res = SimplexChain([],self.complex)
         for s in self.coeffs:
-            res.coeffs[j] = (other*self.coeffs[j])%self.homology.field
+            res.coeffs[j] = (other*self.coeffs[j])%self.complex.field
         return res
 
     def __str__(self):
