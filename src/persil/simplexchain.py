@@ -61,7 +61,7 @@ class SimplexChain:
         self.coeffs = {}
         self.complex = homology
         for (j,c) in simplexCoeffList:
-            self.coeffs[j] = c % self.field
+            self.coeffs[j] = c % self.homology.field
 
     def getCoeff(self,j):
         if j in self.coeffs:
@@ -84,7 +84,7 @@ class SimplexChain:
         return True
 
     def __add__(self,other):
-        res = SimplexChain([],field = self.field)
+        res = SimplexChain([],self.complex)
         for j in self.coeffs:
             res.coeffs[j] = self.coeffs[j]
         for j in other.coeffs:
