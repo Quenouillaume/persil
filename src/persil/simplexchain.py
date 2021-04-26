@@ -29,7 +29,7 @@ class Simplex:
         return "Simplex{}".format(str(self.vertices))
 
 
-    def faces(self,complex):
+    def faces(self):
         res = []
         for i in range(self.dim):
             res.append(Simplex(self.vertices[:i]+self.vertices[i+1:]))
