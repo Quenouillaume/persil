@@ -11,7 +11,7 @@ class FilteredComplex:
     def __init__(self,warnings = False):
         self._simplexes = [] # list of simplices, ordered by dimension, then by degree, then by an arbitrary predefined order to break ties
         self._degrees_dict = {} # also contains the degrees. keys are simplices
-        self._numSimplexes = 0
+        self._numSimplices = 0
         self._dimension = 0
         self._warnings = warnings
         self._maxDeg = 0
@@ -58,10 +58,10 @@ class FilteredComplex:
         if update:
             j = self._simplexes.index(s)
             self._simplexes.pop(j)
-            self._numSimplexes -= 1
+            self._numSimplices -= 1
 
         i = 0
-        while i<self._numSimplexes:
+        while i<self._numSimplices:
 
             if self.order(s,d,self._simplexes[i],self._degrees_dict[self._simplexes[i]]):
                 i+=1
@@ -70,7 +70,7 @@ class FilteredComplex:
 
         self._degrees_dict[s] = d
         self._simplexes = self._simplexes[:i] + [s] + self._simplexes[i:]
-        self._numSimplexes += 1
+        self._numSimplices += 1
         self._dimension = max(self._dimension,s.dim)
         self._maxDeg = max(self._maxDeg,d)
 
@@ -88,11 +88,9 @@ class FilteredComplex:
 
 class ZomorodianCarlsson:
     def __init__(self,filteredComplex,field = 2,strict = False,verbose = False):
-        self.n = filteredComplex._numSimplexes
+        self.n = filteredComplex._numSimplices
         self.simplices = filteredComplex._simplexes[:]
         self._indexBySimplex = {}
-        for i in range(self.n):
-            self._indexBySimplex[self.simplices[i]] = i
 
         self.dim = filteredComplex._dimension
         self.degrees = filteredComplex._degrees_dict.copy()
@@ -164,9 +162,9 @@ class ZomorodianCarlsson:
 
     def removePivotRows(self,s):
         d = simplexBoundary(s,self.field)
-        for s in d.coeffs:
-            if not self.marked[self._indexBySimplex[s]]:
-                d.coeffs[s] = 0
+        for j in d.coeffs:
+            if not self.marked[j]:
+                d.coeffs[j] = 0
         d.purge()
         while not d.isEmpty():
 
@@ -188,17 +186,15 @@ class ZomorodianCarlsson:
             if self.verbose:
                 print("{} is in T with coeff {}: ".format(t,q),"##########",str(c),"##########",sep='\n'    )
             d = d - pow(q,d.field-2,d.field)*c
-            d.purge()
         return d
 
 
     def maxIndex(self,d):
         currmax = -1
         res = None
-        for s in d.coeffs:
-            i = self._indexBySimplex[s]
-            if i>currmax:
-                currmax = i
+        for j in d.coeffs:
+            if j>currmax:
+                currmax = j
                 res = s
         return (res,currmax)
 
