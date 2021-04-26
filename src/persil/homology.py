@@ -178,7 +178,7 @@ class ZomorodianCarlsson:
                     print("{} is not in T: done removing pivot rows".format(t))
                 break
 
-            c = self.T[t][1]
+            c = self.T[maxInd][1]
             q = c.getCoeff(t)
             if self.verbose:
                 print("{} is in T with coeff {}: ".format(t,q),"##########",str(c),"##########",sep='\n'    )
