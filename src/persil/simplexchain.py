@@ -29,10 +29,10 @@ class Simplex:
         return "Simplex{}".format(str(self.vertices))
 
 
-    def faces(self):
+    def faces(self,complex):
         res = []
         for i in range(self.dim):
-            res.append(Simplex(self.vertices[:i]+self.vertices[i+1:]))
+            res.append(complex._indexBySimplex[Simplex(self.vertices[:i]+self.vertices[i+1:])])
         return res
 
 
