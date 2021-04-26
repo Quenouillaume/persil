@@ -92,7 +92,7 @@ class ZomorodianCarlsson:
         self.simplices = filteredComplex._simplexes[:]
         self._indexBySimplex = {}
         for i in range(self.n):
-            self._indexBySimplex[self.simplices[i] = i]
+            self._indexBySimplex[self.simplices[i]] = i
         self.dim = filteredComplex._dimension
         self.degrees = filteredComplex._degrees_dict.copy()
         self.field = field
