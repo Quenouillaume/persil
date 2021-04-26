@@ -96,7 +96,7 @@ class ZomorodianCarlsson:
 
 
         self.marked = set()
-        self.T = {} # contains couples (simplex,chain)
+        self.T = [None for i in range(self.n)] # contains couples (simplex,chain)
         self.intervals = [[] for i in range(self.dim+1)]
         self.pairs = []
 
@@ -138,7 +138,7 @@ class ZomorodianCarlsson:
 
                 t,maxInd = self.maxIndex(d)
                 k = t.dim-1
-                self.T[t] = (s,d)
+                self.T[maxInd] = (s,d)
                 self.addInterval(k,t,s)
                 if self.verbose:
                     print("Boundary non-reducible: T{} is set to:".format(t))
@@ -148,7 +148,7 @@ class ZomorodianCarlsson:
             print("First pass over, beginning second pass")
         for j in range(self.n):
             s = self.simplices[j]
-            if s in self.marked and s not in self.T:
+            if s in self.marked and not self.T[j]:
                 k = s.dim -1
                 if self.verbose:
                     print("Infinite interval found for {}.".format(s))
@@ -173,7 +173,7 @@ class ZomorodianCarlsson:
             t,maxInd = self.maxIndex(d)
             if self.verbose:print("simplex with max index in d: {} with index {}".format(t,maxInd))
 
-            if t not in self.T:
+            if not self.T[maxInd]:
                 if self.verbose:
                     print("{} is not in T: done removing pivot rows".format(t))
                 break
@@ -182,7 +182,7 @@ class ZomorodianCarlsson:
             q = c.getCoeff(t)
             if self.verbose:
                 print("{} is in T with coeff {}: ".format(t,q),"##########",str(c),"##########",sep='\n'    )
-            d = d - pow(q,d.field-2,d.field)*self.T[t][1]
+            d = d - pow(q,d.field-2,d.field)*self.T[maxInd][1]
 
         return d
 
