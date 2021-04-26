@@ -171,7 +171,8 @@ class ZomorodianCarlsson:
                 print(str(d))
 
             t,maxInd = self.maxIndex(d)
-            if self.verbose:print("simplex with max index in d: {} with index {}".format(t,maxInd))
+            if self.verbose:
+                print("simplex with max index in d: {} with index {}".format(t,maxInd))
 
             if not self.T[maxInd]:
                 if self.verbose:
@@ -183,7 +184,7 @@ class ZomorodianCarlsson:
             if self.verbose:
                 print("{} is in T with coeff {}: ".format(t,q),"##########",str(c),"##########",sep='\n'    )
             d = d - pow(q,d.field-2,d.field)*self.T[maxInd][1]
-
+            d.purge()
         return d
 
 
