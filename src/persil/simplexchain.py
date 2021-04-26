@@ -32,7 +32,7 @@ class Simplex:
     def faces(self,complex):
         res = []
         for i in range(self.dim):
-            res.append(complex._indexBySimplex[Simplex(self.vertices[:i]+self.vertices[i+1:])])
+            res.append(Simplex(self.vertices[:i]+self.vertices[i+1:]))
         return res
 
 
@@ -137,6 +137,6 @@ def simplexBoundary(s,complex):
     if s.dim == 1:
         return res
     faces = s.faces()
-    l = [(faces[i],(-1)**i) for i in range(s.dim) ]
+    l = [(complex._indexBySimplex[faces[i]],(-1)**i) for i in range(s.dim) ]
     res += SimplexChain(l,complex)
     return res
