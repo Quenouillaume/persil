@@ -88,8 +88,12 @@ class FilteredComplex:
 
 class ZomorodianCarlsson:
     def __init__(self,filteredComplex,field = 2,strict = False,verbose = False):
-        self.simplices = filteredComplex._simplexes[:]
         self.n = filteredComplex._numSimplexes
+        self.simplices = filteredComplex._simplexes[:]
+        self._indexBySimplex = {}
+        for i in range(self.n):
+            self._indexBySimplex[self.simplices[i]] = i
+
         self.dim = filteredComplex._dimension
         self.degrees = filteredComplex._degrees_dict.copy()
         self.field = field
@@ -183,20 +187,16 @@ class ZomorodianCarlsson:
             q = c.getCoeff(t)
             if self.verbose:
                 print("{} is in T with coeff {}: ".format(t,q),"##########",str(c),"##########",sep='\n'    )
-            d = d - pow(q,d.field-2,d.field)*self.T[maxInd][1]
+            d = d - pow(q,d.field-2,d.field)*c
             d.purge()
         return d
-
-
-
-
 
 
     def maxIndex(self,d):
         currmax = -1
         res = None
         for s in d.coeffs:
-            i = self.simplices.index(s)
+            i = self._indexBySimplex[s]
             if i>currmax:
                 currmax = i
                 res = s
