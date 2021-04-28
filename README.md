@@ -6,15 +6,15 @@ If you encounter any issues, please don't hesitate to contact me !
 
 # Installation
 ## On Linux
-Install directly from github with `python3 -m pip install https://github.com/quenouillaume/persil/archive/refs/tags/v0.2-beta.tar.gz`
+Install directly from github with `python3 -m pip install https://github.com/quenouillaume/persil/archive/refs/tags/v0.3-beta.tar.gz`
 
 
 ## On Windows
 
-Install directly from github with `python -m pip install https://github.com/quenouillaume/persil/archive/refs/tags/v0.2-beta.tar.gz`
+Install directly from github with `python -m pip install https://github.com/quenouillaume/persil/archive/refs/tags/v0.3-beta.tar.gz`
 
 ## On your favorite python IDE
-If you're using Pyzo, Jupyter Notebook or something similar, simply type `pip install https://github.com/quenouillaume/persil/archive/refs/tags/v0.2-beta.tar.gz` 
+If you're using Pyzo, Jupyter Notebook or something similar, simply type `pip install https://github.com/quenouillaume/persil/archive/refs/tags/v0.3-beta.tar.gz` 
 
 
 # Guide
