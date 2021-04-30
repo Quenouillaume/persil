@@ -5,17 +5,21 @@ The algorithm implemented is described in this [article by Afra Zomorodian and G
 If you encounter any issues, please don't hesitate to contact me !
 
 # Installation
-## On Linux
-Install directly from github with `python3 -m pip install https://github.com/quenouillaume/persil/archive/refs/tags/v0.3-beta.tar.gz`
+## On Unix
+Install directly from github with `python3 -m pip install git+https://github.com/quenouillaume/persil`
 
 
 ## On Windows
+Download repository as a ZIP file, then open a terminal in your downloads folder and enter:
+`python /m pip install persil-main.zip`
+(Warning: this will install the latest release but not the master branch)
 
-Install directly from github with `python -m pip install https://github.com/quenouillaume/persil/archive/refs/tags/v0.3-beta.tar.gz`
-
-## On your favorite python IDE
-If you're using Pyzo, Jupyter Notebook or something similar, simply type `pip install https://github.com/quenouillaume/persil/archive/refs/tags/v0.3-beta.tar.gz` 
-
+## In Sage
+```
+module load gcc/8.3.0
+module load sage/9.1
+sage -pip install --user git+https://github.com/quenouillaume/persil/
+```
 
 # Guide
 
@@ -75,9 +79,10 @@ If everything works fine, this should draw a nice persistence diagram with one v
 
 ## TODO
 * Organize files and code
-* Persistence diagrams and barcodes
+* Rips complex
 
 ## IN PROGRESS
+* Persistence diagrams and barcodes
 * Learn how to make python packages
 * Comment code
 * Add a guide
