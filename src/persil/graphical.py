@@ -9,6 +9,7 @@ def get_min_max(intervals):
 	p_max = -inf
 	for (x,y) in intervals:
 		p_min = min(p_min,x)
+		p_max = max(p_max,x)
 		if y != inf:
 			p_max = max(p_max,y)
 	return p_min,p_max
