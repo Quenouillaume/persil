@@ -15,6 +15,13 @@ def get_min_max(intervals):
 	return p_min,p_max
 
 def persistence_diagram(intervals):
+	if intervals == []:
+		fig, ax = plt.subplots()
+		ax.set_xlim(left = lower_limit,right = upper_limit)
+		ax.set_ylim(bottom = lower_limit,top = upper_limit)
+		ax.plot([lower_limit, upper_limit],[lower_limit , upper_limit],'b-')
+		plt.show()
+		return
 
 	p_min, p_max = get_min_max(intervals)
 	dp = p_max - p_min
