@@ -28,7 +28,7 @@ def persistence_diagram(intervals):
 	p_min, p_max = get_min_max(intervals)
 	dp = p_max - p_min
 
-	lower_limit = p_min - dp/5
+	lower_limit = 0 - dp/5
 	upper_limit = p_max + dp/5
 
 
