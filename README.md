@@ -12,7 +12,6 @@ Install directly from github with `python3 -m pip install git+https://github.com
 ## On Windows
 Download repository as a ZIP file, then open a terminal in your downloads folder and enter:
 `python /m pip install persil-main.zip`
-(Warning: this will install the latest release but not the master branch)
 
 ## In Sage
 ```
@@ -79,10 +78,11 @@ If everything works fine, this should draw a nice persistence diagram with one v
 
 ## TODO
 * Organize files and code
-* Rips complex
+
 
 ## IN PROGRESS
 * Persistence diagrams and barcodes
 * Learn how to make python packages
 * Comment code
 * Add a guide
+* Rips complex
