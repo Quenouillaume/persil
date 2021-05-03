@@ -9,7 +9,7 @@ class FilteredComplex:
     # the degree of a simplex is the lowest index for which it appears in the complex
 
     def __init__(self,warnings = False):
-        self._simplexes = [] # list of simplices, ordered by dimension, then by degree, then by an arbitrary predefined order to break ties
+        self._simplices = [] # list of simplices, ordered by dimension, then by degree, then by an arbitrary predefined order to break ties
         self._degrees_dict = {} # also contains the degrees. keys are simplices
         self._numSimplices = 0
         self._dimension = 0
@@ -55,22 +55,13 @@ class FilteredComplex:
                     print("Inserting face {} as well".format(f))
                 self.append(f,d)
 
-        if update:
-            j = self._simplexes.index(s)
-            self._simplexes.pop(j)
-            self._numSimplices -= 1
-
-        i = 0
-        while i<self._numSimplices:
-
-            if self.order(s,d,self._simplexes[i],self._degrees_dict[self._simplexes[i]]):
-                i+=1
-            else:
-                break
+        if not update:
+            self._numSimplices += 1
+            self._simplices.append(s)
+        else:
+            pass
 
         self._degrees_dict[s] = d
-        self._simplexes = self._simplexes[:i] + [s] + self._simplexes[i:]
-        self._numSimplices += 1
         self._dimension = max(self._dimension,s.dim)
         self._maxDeg = max(self._maxDeg,d)
 
@@ -79,7 +70,7 @@ class FilteredComplex:
 
     def __str__(self):
 
-        return  "\n".join(["{} : {}".format(s,self._degrees_dict[s]) for s in self._simplexes])
+        return  "\n".join(["{} : {}".format(s,self._degrees_dict[s]) for s in self._simplices])
 
 
 
@@ -89,7 +80,12 @@ class FilteredComplex:
 class ZomorodianCarlsson:
     def __init__(self,filteredComplex,field = 2,strict = False,verbose = False):
         self.n = filteredComplex._numSimplices
-        self.simplices = filteredComplex._simplexes[:]
+        def key(s):
+            d = filteredComplex.degree(s)
+            return (s.dim,d,s)
+        filteredComplex._simplices.sort(key = key)
+
+        self.simplices = filteredComplex._simplices[:]
         self._indexBySimplex = {}
         for i in range(self.n):
             self._indexBySimplex[self.simplices[i]] = i
