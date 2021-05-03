@@ -109,7 +109,12 @@ class RipsComplex:
         print("Done creating skeleton. Computing weights...")
 
         # Finally, compute the weight of each additional simplex
+        total = len(simplexList)
+        count = 0
         for s in simplexList:
+            count +=1
+            if count%100 ==0:
+                print("{}/{}".format(count,total))
             value = self.computeWeight(s)
             self.complex.append(s,value)
 
