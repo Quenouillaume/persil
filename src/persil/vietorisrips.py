@@ -73,9 +73,13 @@ class RipsComplex:
         if not maxDimension:
             maxDimension = self.nPoints
 
-        self.complex = FilteredComplex()
+
         prevSimplices = []
         currSimplices = []
+
+
+        self.complex = FilteredComplex()
+
         # initialize 1-skeleton
         for x in range(self.nPoints):
             for y in range(self.nPoints):
@@ -86,6 +90,7 @@ class RipsComplex:
 
 
         # compute i+1-skeleton from i-skeleton
+        simplexList = []
         for i in range(1,maxDimension):
             print("Computing {}-simplices".format(i))
             prevSimplices = currSimplices[:]
@@ -99,10 +104,14 @@ class RipsComplex:
 
                 for v in neighbours:
                     s = Simplex(l+[v])
-                    value = self.computeWeight(s)
-                    self.complex.append(s,value)
+                    simplexList.append(s)
                     currSimplices.append(l+[v])
+        print("Done creating skeleton. Computing weights...")
 
+        # Finally, compute the weight of each additional simplex
+        for s in simplexList:
+            value = self.computeWeight(s)
+            self.complex.append(s,value)
 
 
     def lowerNeighbours(self,l):
