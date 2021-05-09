@@ -28,8 +28,11 @@ class RipsComplex:
     threshold : float, maximum distance which will be considered
     when constructing the complex
 
+    verbose: bool, set to True for info on computation progress
+
     """
-    def __init__(self, pointList, distance = euclidianDistance, threshold = None):
+    def __init__(self, pointList, distance = euclidianDistance, threshold = None,verbose = False):
+        self._verbose = verbose
         self.points = pointList[:]
         self.distance = distance
         self.nPoints = len(pointList)
@@ -92,21 +95,24 @@ class RipsComplex:
         # compute i+1-skeleton from i-skeleton
         simplexList = []
         for i in range(1,maxDimension):
-            print("Computing {}-simplices".format(i))
+            if self._verbose:
+                print("Computing {}-simplices.".format(i))
             prevSimplices = currSimplices[:]
             currSimplices = []
             count = 0
+            total = len(prevSimplices)
             for l in prevSimplices:
                 count +=1
-                if count%100 ==0:
-                    print(count)
+                if count%100 ==0 and self._verbose:
+                    print("Step {}: {}/{}".format(i,count,total))
                 neighbours = self.lowerNeighbours(l)
 
                 for v in neighbours:
                     s = Simplex(l+[v])
                     simplexList.append(s)
                     currSimplices.append(l+[v])
-        print("Done creating skeleton. Computing weights...")
+        if self._verbose:
+            print("Done creating skeleton. Computing weights...")
 
         # Finally, compute the weight of each additional simplex
         total = len(simplexList)

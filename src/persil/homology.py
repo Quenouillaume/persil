@@ -112,8 +112,8 @@ class ZomorodianCarlsson:
             j = self.degrees[s]
 
         if i != j or (not self._strict):
-            if self.verbose:
-                print("Adding {}-interval ({},{})".format(k,i,j))
+            #if self.verbose:
+                #print("Adding {}-interval ({},{})".format(k,i,j))
             self.intervals[k].append((i,j))
             self.pairs.append((t,s))
             #if i == 10:
@@ -122,16 +122,20 @@ class ZomorodianCarlsson:
 
 
     def computeIntervals(self):
+        if self.verbose:
+            print("Beginning first pass")
         for j in range(self.n):
+            if j%1000 == 0 and self.verbose:
+                print('{}/{}'.format(j,self.n))
             s = self.simplices[j]
-            if self.verbose:
-                print("Examining {}. Removing pivot rows...".format(s))
+            #if self.verbose:
+                #print("Examining {}. Removing pivot rows...".format(s))
             d = self.removePivotRows(s)
-            if self.verbose:
-                print("Done removing pivot rows")
+            #if self.verbose:
+                #print("Done removing pivot rows")
             if d.isEmpty():
-                if self.verbose:
-                    print("Boundary is empty when pivots are removed: marking {}".format(s))
+                #if self.verbose:
+                    #print("Boundary is empty when pivots are removed: marking {}".format(s))
                 self.marked[j] = True
             else:
 
@@ -140,18 +144,20 @@ class ZomorodianCarlsson:
                 k = t.dim-1
                 self.T[maxInd] = (s,d)
                 self.addInterval(k,t,s)
-                if self.verbose:
-                    print("Boundary non-reducible: T{} is set to:".format(t))
-                    print(str(d))
+                #if self.verbose:
+                    #print("Boundary non-reducible: T{} is set to:".format(t))
+                    #print(str(d))
 
         if self.verbose:
             print("First pass over, beginning second pass")
         for j in range(self.n):
+            if j%1000 == 0 and self.verbose:
+                print('{}/{}'.format(j,self.n))
             s = self.simplices[j]
             if self.marked[j] and not self.T[j]:
                 k = s.dim -1
-                if self.verbose:
-                    print("Infinite interval found for {}.".format(s))
+                #if self.verbose:
+                    #print("Infinite interval found for {}.".format(s))
                 self.addInterval(k,s,None)
         if self.verbose:
             print("Second pass over")
@@ -166,24 +172,24 @@ class ZomorodianCarlsson:
         d.purge()
         while not d.isEmpty():
 
-            if self.verbose:
-                print("Current chain d:")
-                print(str(d))
+            #if self.verbose:
+                #print("Current chain d:")
+                #print(str(d))
 
             maxInd = self.maxIndex(d)
             t = self.simplices[maxInd]
-            if self.verbose:
-                print("simplex with max index in d: {} with index {}".format(maxInd))
+            #if self.verbose:
+                #print("simplex with max index in d: {} with index {}".format(maxInd))
 
             if not self.T[maxInd]:
-                if self.verbose:
-                    print("{} is not in T: done removing pivot rows".format(t))
+                #if self.verbose:
+                    #print("{} is not in T: done removing pivot rows".format(t))
                 break
 
             c = self.T[maxInd][1]
             q = c.getCoeff(t)
-            if self.verbose:
-                print("{} is in T with coeff {}: ".format(t,q),"##########",str(c),"##########",sep='\n'    )
+            #if self.verbose:
+                #print("{} is in T with coeff {}: ".format(t,q),"##########",str(c),"##########",sep='\n'    )
             d = d - pow(q,self.field-2,self.field)*c
         return d
 
