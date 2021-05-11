@@ -119,7 +119,7 @@ class RipsComplex:
         count = 0
         for s in simplexList:
             count +=1
-            if count%1000 ==0 and self.verbose:
+            if count%1000 ==0 and self._verbose:
                 print("{}/{}".format(count,total))
             value = self.computeWeight(s)
             self.complex.append(s,value)
