@@ -103,7 +103,7 @@ class RipsComplex:
             total = len(prevSimplices)
             for l in prevSimplices:
                 count +=1
-                if count%100 ==0 and self._verbose:
+                if count%1000 ==0 and self._verbose:
                     print("Step {}: {}/{}".format(i,count,total))
                 neighbours = self.lowerNeighbours(l)
 
@@ -119,7 +119,7 @@ class RipsComplex:
         count = 0
         for s in simplexList:
             count +=1
-            if count%100 ==0:
+            if count%1000 ==0 and self.verbose:
                 print("{}/{}".format(count,total))
             value = self.computeWeight(s)
             self.complex.append(s,value)
