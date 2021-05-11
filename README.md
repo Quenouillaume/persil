@@ -7,18 +7,31 @@ If you encounter any issues, please don't hesitate to contact me !
 # Installation
 ## On Unix
 Install directly from github with `python3 -m pip install git+https://github.com/quenouillaume/persil`
+You can update the module with `python3 -m pip install --upgrade --user git+https://github.com/quenouillaume/persil`
 
 
 ## On Windows
 Download repository as a ZIP file, then open a terminal in your downloads folder and enter:
 `python /m pip install persil-main.zip`
+To update, download the latest version as a ZIP file, then, as before, open a terminal in your downloads folder and enter:
+`python /m pip install --upgrade --user persil-main.zip`
 
 ## In Sage
+Load Sage with
 ```
 module load gcc/8.3.0
 module load sage/9.1
+```
+Then, to install:
+```
 sage -pip install --user git+https://github.com/quenouillaume/persil/
 ```
+To upgrade, use:
+```
+sage -pip install --upgrade --user git+https://github.com/quenouillaume/persil/
+```
+
+
 
 # Guide
 
@@ -72,6 +85,62 @@ zc.computeIntervals()
 persistence_diagram(zc.intervals[0])
 ```
 If everything works fine, this should draw a nice persistence diagram with one vertical line and 3 points !
+
+
+## Rips-Vietoris Complex
+
+The RipsVietoris class is used to construct Rips complexes from a cloud point. Initialize it as follows:
+
+```python
+r = RipsComplex(pointList,distance,threshold)
+```
+where:
+* `pointList` is a list of points
+* `distance` is a function taking two points as argument and returning their distance as a float
+* `threshold` is the maximum distance to be considered when constructing the complex. It can be omitted, in which case the program will compute the entire Rips complex, but this can get quite long.
+* Additionally, you can add the optional argument `verbose = True`, which will make the construction print info on the progress of the construction
+
+Once the object is initialized, compute the Complex with:
+```python
+r.compute_skeleton(d)
+```
+
+where `d` is the maximum desired dimension. For instance if `d` is 2, the resulting complex will contain points, edges and triangles.
+
+Finally, you can access the Rips complex with `r.complex`. You can then compute its homology like in the previous examples.
+If you are working with points in the 2d plane, you can plot the point cloud and the neibourhood graph with `r.plot()`. This technically also works with points in higher dimension but it will only plot a projection on the two first axes.
+
+Here is a full example:
+```python
+import random
+from numpy import sqrt
+from persil import *
+
+
+def euclidianDistance(x,y):
+    return sqrt( sum([(x[i] - y[i])**2 for i in range(len(x))]))
+    
+    
+def randomPoints(n,D): # returns a list of n random points in the unit cube of dimension D
+    l = [ tuple([random.random() for i in range(D)]) for j in range(n)]
+    return l
+    
+    
+    
+l = randomPoints(1000,3)
+
+r = RipsComplex(l,euclidianDistance,0.23,verbose = True)
+
+r.compute_skeleton(2)
+
+zc = ZomorodianCarlsson(r.complex, strict = True,verbose = True)
+
+zc.computeIntervals()
+
+persistence_diagram(zc.intervals[1])
+
+
+```
 
 
 
