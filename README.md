@@ -89,7 +89,7 @@ If everything works fine, this should draw a nice persistence diagram with one v
 
 ## Rips-Vietoris Complex
 
-The RipsVietoris class is used to construct Rips complexes from a cloud point. Initialize it as follows:
+The RipsComplex class is used to construct Rips complexes from a cloud point. Initialize it as follows:
 
 ```python
 r = RipsComplex(pointList,distance,threshold)
