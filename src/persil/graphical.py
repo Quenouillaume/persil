@@ -14,7 +14,7 @@ def get_min_max(intervals):
 			p_max = max(p_max,y)
 	return p_min,p_max
 
-def persistence_diagram(intervals):
+def persistence_diagram(intervals,saveAs = None):
 	if len(intervals) == 0:
 		fig, ax = plt.subplots()
 		lower_limit = 0
@@ -22,7 +22,11 @@ def persistence_diagram(intervals):
 		ax.set_xlim(left = lower_limit,right = upper_limit)
 		ax.set_ylim(bottom = lower_limit,top = upper_limit)
 		ax.plot([lower_limit, upper_limit],[lower_limit , upper_limit],'b-')
-		plt.show()
+		if saveAs:
+			plt.savefig(saveAs)
+			print("Saved figure at " + saveAs)
+		else:
+			plt.show()
 		return
 
 	p_min, p_max = get_min_max(intervals)
@@ -37,12 +41,20 @@ def persistence_diagram(intervals):
 	ax.set_ylim(bottom = lower_limit,top = upper_limit)
 	ax.plot([lower_limit, upper_limit],[lower_limit , upper_limit],'b-')
 
-	for (x,y) in intervals:
+	for (x,y) in set(intervals):
 		if y == inf:
 			ax.plot([x,x],[x,upper_limit],'g-')
 		else:
 			ax.plot([x],[y],'ro')
-	plt.show()
+
+	if saveAs:
+		plt.savefig(saveAs)
+		print("Saved figure at " + saveAs)
+	else:
+		plt.show()
+
+
+
 
 
 def barcode(intervals):
