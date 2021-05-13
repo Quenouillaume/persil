@@ -49,6 +49,7 @@ def persistence_diagram(intervals,saveAs = None):
 
 	if saveAs:
 		plt.savefig(saveAs)
+		plt.close()
 		print("Saved figure at " + saveAs)
 	else:
 		plt.show()
