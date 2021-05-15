@@ -15,6 +15,14 @@ def get_min_max(intervals):
 	return p_min,p_max
 
 def persistence_diagram(intervals,saveAs = None):
+	"""
+	Plots the persistence diagram of the input list.
+	Arguments:
+	- intervals: list of tuples (x,y) of reals. y may be inf
+	- saveAs: optional. String specifying a path / name to
+	save the image of the diagram. If set, the function will not
+	show the diagram but only save it.
+	"""
 	if len(intervals) == 0:
 		fig, ax = plt.subplots()
 		lower_limit = 0
@@ -59,6 +67,9 @@ def persistence_diagram(intervals,saveAs = None):
 
 
 def barcode(intervals):
+	"""
+	Plot the barcode corresponding to the input list.
+	"""
 	p_min, p_max = get_min_max(intervals)
 	dp = p_max - p_min
 

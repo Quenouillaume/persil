@@ -24,12 +24,6 @@ class FilteredComplex:
             return -1
 
 
-
-    def order(self,s1,d1,s2,d2): # return True if s1 with degree d1 is greater than s2 with degree d2
-        if s1.dim > s2.dim or (s1.dim == s2.dim and d1 > d2) or (s1.dim == s2.dim and d1 == d2 and s1 > s2 ):
-            return True
-        return False
-
     def append(self,s,d): #simplex as a list of vertices, degree. Insert so that the order is preserved
         # if the simplex is already in the complex, do nothing
         update = False
