@@ -101,7 +101,7 @@ class ZomorodianCarlsson:
 
         # remember the index of each simplex
         self._indexBySimplex = {}
-        for i in range(self.n):
+        for i in range(self.numSimplices):
             self._indexBySimplex[self.simplices[i]] = i
 
 
