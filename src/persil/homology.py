@@ -97,8 +97,14 @@ class ZomorodianCarlsson:
             d = filteredComplex.degree(s)
             return (s.dim,d,s)
         filteredComplex._simplices.sort(key = key)
-
         self.simplices = filteredComplex._simplices[:]
+
+        # remember the index of each simplex
+        self._indexBySimplex = {}
+        for i in range(self.n):
+            self._indexBySimplex[self.simplices[i]] = i
+
+
         self.dim = filteredComplex._dimension
         self.degrees = filteredComplex._degrees_dict.copy()
         self.field = field
