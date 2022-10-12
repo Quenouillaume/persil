@@ -2,22 +2,17 @@
 
 
 class Simplex:
-    def __init__(self,l):
+    def __init__(self, l):
         self.vertices = l[:]
         self.vertices.sort()
         self.dim = len(l)
 
-
-
-    def __eq__(self,other):
+    def __eq__(self, other):
         return (self.vertices == other.vertices)
 
-    def __lt__(self,other): # should only be used for simplices of same dimension
-        for (x,y) in zip(self.vertices,other.vertices):
-            if x>y:
-                return False
-        return True
-
+    def __lt__(self, other):
+        # should only be used for simplices of same dimension
+        return all(x <= y for x, y in zip(self.vertices, other.vertices))
 
     def __hash__(self):
         return hash(tuple(self.vertices))
@@ -28,49 +23,41 @@ class Simplex:
     def __repr__(self):
         return "Simplex{}".format(str(self.vertices))
 
-
     def faces(self):
-        res = []
-        for i in range(self.dim):
-            res.append(Simplex(self.vertices[:i]+self.vertices[i+1:]))
-        return res
+        return [Simplex(self.vertices[:i] + self.vertices[i + 1:])
+                for i in range(self.dim)]
 
 
-
-def simplexOrder(s1,s2): # returns True iff s1 <= s2
-    for (x,y) in zip(s1.vertices,s2.vertices):
-        if x>y:
-            return False
-    return True
-
+def simplexOrder(s1, s2):
+    """
+    Return True iff s1 <= s2.
+    """
+    return all(x <= y for x, y in zip(s1.vertices, s2.vertices))
 
 
-
-def isFace(s1,s2):
-    if s1.dim+1 != s2.dim:
+def isFace(s1, s2):
+    if s1.dim + 1 != s2.dim:
         return False
-    for i in s1.vertices:
-        if i not in s2.vertices:
-            return False
-    return True
-
+    return all(i in s2.vertices for i in s1.vertices)
 
 
 class SimplexChain:
-    def __init__(self,simplexCoeffList,complex):
+    def __init__(self, simplexCoeffList, complex):
         self.coeffs = {}
         self.complex = complex
         for (j,c) in simplexCoeffList:
             self.coeffs[j] = c % self.complex.field
 
-    def getCoeff(self,j):
+    def getCoeff(self, j):
         if j in self.coeffs:
             return self.coeffs[j]
-        else:
-            return 0
+        return 0
 
-    def purge(self):   # removes simplices with coefficient 0
-        toBeRemoved= []
+    def purge(self):
+        """
+        Remove simplices with coefficient 0.
+        """
+        toBeRemoved = []
         for j in self.coeffs:
             if self.coeffs[j] == 0:
                 toBeRemoved.append(j)
@@ -78,18 +65,15 @@ class SimplexChain:
             self.coeffs.pop(j)
 
     def isEmpty(self):
-        for j in self.coeffs:
-            if self.coeffs[j] != 0:
-                return False
-        return True
+        return not any(self.coeffs[j] for j in self.coeffs)
 
-    def __add__(self,other):
-        res = SimplexChain([],self.complex)
+    def __add__(self, other):
+        res = SimplexChain([], self.complex)
         for j in self.coeffs:
             res.coeffs[j] = self.coeffs[j]
         for j in other.coeffs:
             if j in res.coeffs:
-                res.coeffs[j] = (other.coeffs[j] + res.coeffs[j])%self.complex.field
+                res.coeffs[j] = (other.coeffs[j] + res.coeffs[j]) % self.complex.field
             else:
                 res.coeffs[j] = other.coeffs[j]
             if res.coeffs[j] == 0:
@@ -97,19 +81,18 @@ class SimplexChain:
         return res
 
     def __neg__(self):
-        res = SimplexChain([],self.complex)
+        res = SimplexChain([], self.complex)
         for j in self.coeffs:
-            res.coeffs[j] = (-self.coeffs[j])%self.complex.field
+            res.coeffs[j] = (-self.coeffs[j]) % self.complex.field
         return res
 
-
-    def __sub__(self,other):
+    def __sub__(self, other):
         return self + (-other)
 
-    def __rmul__(self,other):
-        res = SimplexChain([],self.complex)
+    def __rmul__(self, other):
+        res = SimplexChain([], self.complex)
         for j in self.coeffs:
-            res.coeffs[j] = (other*self.coeffs[j])%self.complex.field
+            res.coeffs[j] = (other * self.coeffs[j]) % self.complex.field
         return res
 
     def __str__(self):
@@ -122,21 +105,21 @@ class SimplexChain:
         return str(self)
 
 
-
 def boundary(schain):
-    res = SimplexChain([],schain.complex)
+    res = SimplexChain([], schain.complex)
 
     for j in schain.coeffs:
         faces = j.faces()
-        l = [(faces[i],(-1)**i) for i in range(shain.complex.simplices[j].dim) ]
-        res += schain.coeffs[s] * SimplexChain(l,schain.complex)
+        l = [(faces[i], (-1)**i) for i in range(schain.complex.simplices[j].dim)]
+        res += schain.coeffs[s] * SimplexChain(l, schain.complex)
     return res
 
-def simplexBoundary(s,complex):
-    res = SimplexChain([],complex)
+
+def simplexBoundary(s, complex):
+    res = SimplexChain([], complex)
     if s.dim == 1:
         return res
     faces = s.faces()
-    l = [(complex._indexBySimplex[faces[i]],(-1)**i) for i in range(s.dim) ]
-    res += SimplexChain(l,complex)
+    l = [(complex._indexBySimplex[faces[i]], (-1)**i) for i in range(s.dim)]
+    res += SimplexChain(l, complex)
     return res
