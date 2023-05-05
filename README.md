@@ -1,8 +1,6 @@
 # PersiL
 A simple python project for computing **Persi**stent homo**L**ogy. THIS REPO IS NO LONGER MAINTAINED as it has been integrated into [SageMath](https://www.sagemath.org) !
-The algorithm implemented is described in this [article by Afra Zomorodian and Gunnar Carlsson](https://geometry.stanford.edu/papers/zc-cph-05/zc-cph-05.pdf). Many thanks to them for writing such a clear article !
-
-If you encounter any issues, please don't hesitate to contact me !
+The algorithm implemented is described in this [article by Afra Zomorodian and Gunnar Carlsson](https://geometry.stanford.edu/papers/zc-cph-05/zc-cph-05.pdf).
 
 # Installation
 ## On Unix
@@ -56,7 +54,7 @@ zc.computeIntervals()
 for i in range(2):
     print(zc.getIntervals(i))
 ```
-If everything works fine, it should output:
+This code outputs:
 
 ```python
 [(0, 1), (1, 1), (1, 2), (0, inf)]
@@ -84,7 +82,7 @@ zc.computeIntervals()
 
 persistence_diagram(zc.intervals[0])
 ```
-If everything works fine, this should draw a nice persistence diagram with one vertical line and 3 points !
+This draws a persistence diagram with one vertical line and 3 points !
 
 
 ## Rips-Vietoris Complex
@@ -141,17 +139,3 @@ persistence_diagram(zc.intervals[1])
 
 
 ```
-
-
-
-
-## TODO
-* Organize files and code
-
-
-## IN PROGRESS
-* Persistence diagrams and barcodes
-* Learn how to make python packages
-* Comment code
-* Add a guide
-* Rips complex
