@@ -1,5 +1,5 @@
 # PersiL
-A simple python project for computing **Persi**stent homo**L**ogy. My goal is to have some code nice enough to be able to add it to [SageMath](https://www.sagemath.org "Tiens tiens quelle surprise :)") !
+A simple python project for computing **Persi**stent homo**L**ogy. THIS REPO IS NO LONGER MAINTAINED as it has been integrated into [SageMath](https://www.sagemath.org) !
 The algorithm implemented is described in this [article by Afra Zomorodian and Gunnar Carlsson](https://geometry.stanford.edu/papers/zc-cph-05/zc-cph-05.pdf). Many thanks to them for writing such a clear article !
 
 If you encounter any issues, please don't hesitate to contact me !
